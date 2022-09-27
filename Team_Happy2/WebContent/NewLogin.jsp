@@ -14,7 +14,7 @@
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top"
 		id="mainNav">
 		<div class="container px-4">
-			<a class="navbar-brand" href="test.jsp">Team Happy</a>
+			<a class="navbar-brand" href="game">Team Happy</a>
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
 				aria-controls="navbarResponsive" aria-expanded="false"
@@ -55,7 +55,7 @@
 
 							<div class="form-label-group">
 								<c:if test="${check == 1 }">
-									<label>${message }</label>
+									<label>${message}</label>
 								</c:if>
 							</div>
 								<div style="text-align: center;">

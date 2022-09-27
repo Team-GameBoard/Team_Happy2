@@ -4,6 +4,6 @@
 
 <%
 	session.invalidate();
-	response.sendRedirect("test.jsp");
+	response.sendRedirect("game");
 %>
  

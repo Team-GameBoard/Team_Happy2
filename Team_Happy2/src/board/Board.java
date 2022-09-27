@@ -15,32 +15,32 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class Board {
-	private int board_num;
-	private String user_id;
-	private int game_num;
-	private String board_title;
-	private String board_context;
-	private Timestamp board_created_date;
-	private Timestamp board_update_date;
-	private int read_num;
+	private int boardNum;
+	private String userId;
+	private int gameNum;
+	private String boardTitle;
+	private String boardContent;
+	private Timestamp boardCreatedDate;
+	private Timestamp boardUpdateDate;
+	private int readNum;
 	
-	public Board(String userId, String boardTitle, String boardContext) {
-		this.user_id = userId;
-		this.board_title = boardTitle;
-		this.board_context = boardContext;
+	public Board(String userId, String boardTitle, String boardContent) {
+		this.userId = userId;
+		this.boardTitle = boardTitle;
+		this.boardContent = boardContent;
 	}
 	
-	public Board(String userId, String boardTitle, String boardContext, int game_num) {
-		this.user_id = userId;
-		this.board_title = boardTitle;
-		this.board_context = boardContext;
-		this.game_num = game_num;
+	public Board(String userId, String boardTitle, String boardContent, int gameNum) {
+		this.userId = userId;
+		this.boardTitle = boardTitle;
+		this.boardContent = boardContent;
+		this.gameNum = gameNum;
 	}
 
-	public Board(int boardNum, String boardTitle, String boardContext) {
-		this.board_num = boardNum;
-		this.board_title = boardTitle;
-		this.board_context = boardContext;
+	public Board(int boardNum, String boardTitle, String boardContent) {
+		this.boardNum = boardNum;
+		this.boardTitle = boardTitle;
+		this.boardContent = boardContent;
 	}
 	
 }

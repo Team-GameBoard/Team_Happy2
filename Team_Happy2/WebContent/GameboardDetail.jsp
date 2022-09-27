@@ -10,6 +10,32 @@
 <link href="${pageContext.request.contextPath}/bootstrap-5.1.3-dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <link href="${pageContext.request.contextPath}/fontawesome-free-6.2.0-web/css/font-awesome.min.css" rel="stylesheet">
+<script language=javascript>
+function checkId(){
+	var boardUserId = '${requestScope.resultContent.userId}';
+	var currentUserId = '<%= (String)session.getAttribute("userId") %>';
+	// session의 id와 현재 id 비교
+	if(boardUserId !== currentUserId){
+		alert("권한이 없습니다.");
+		return false;
+	} else {
+		return true;
+	}
+}
+function sendUpdate(){
+	if(checkId()){
+		document.requestForm.command.value ="updateForm";
+		document.requestForm.submit();
+	}
+}	
+function sendDelete(){
+	if(checkId()){
+		confirm("삭제하시겠습니까?");
+		document.requestForm.command.value ="delete";
+		document.requestForm.submit();
+	}
+}	
+</script>
 </head>
 <body>
 
@@ -17,7 +43,7 @@
 	<!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
             <div class="container px-4">
-                <a class="navbar-brand" href="test.jsp">Team Happy</a>
+                <a class="navbar-brand" href="game">Team Happy</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                 	<ul class="navbar-nav ms-auto">
@@ -48,27 +74,27 @@
 			<table class="table">
 				<tr>
 					<th class="success">글번호</th>
-					<td>${requestScope.resultContent.board_num}</td>
+					<td>${requestScope.resultContent.boardNum}</td>
 					<th class="success">조회수</th>
-					<td>${requestScope.resultContent.read_num}</td>
+					<td>${requestScope.resultContent.readNum}</td>
 				</tr>
 
 
 				<tr>
 					<th class="success">작성자</th>
-					<td>${requestScope.resultContent.user_id}</td>
+					<td>${requestScope.resultContent.userId}</td>
 					<th class="success">작성일</th>
-					<td>${requestScope.resultContent.board_created_date}</td>
+					<td>${requestScope.resultContent.boardCreatedDate}</td>
 				</tr>
 
 				<tr>
 					<th class="success">제목</th>
-					<td colspan="3">${requestScope.resultContent.board_title}</td>
+					<td colspan="3">${requestScope.resultContent.boardTitle}</td>
 				</tr>
 
 				<tr>
 					<th class="success">글 내용</th>
-					<td colspan="3">${requestScope.resultContent.board_context}</td>
+					<td colspan="3">${requestScope.resultContent.boardContent}</td>
 				</tr>
 			</table>
 		</div>
@@ -80,9 +106,15 @@
 	
 
 	<div style="margin: 0 auto; border: 1px solid black; text-align: right; width:700px;">
-		<button type="button" class="btn btn-sm btn-primary" id="btnUpdate" onclick="location.href='Update.jsp'">수정</button>
-		<button type="button" class="btn btn-sm btn-primary" id="btnDelete">삭제</button>
-		<button type="button" class="btn btn-sm btn-primary" id="btnList" onclick="location.href='Gameboard.jsp'">목록</button>
+		<form name="requestForm" method=post action="board">
+			<input type=hidden name=num value="${requestScope.resultContent.boardNum}">
+			<input type=hidden name="command" value="">
+			<input type=hidden name="game_num" value="${requestScope.resultContent.gameNum}">
+			<input type=button class="btn btn-sm btn-primary" id="btnUpdate" value="수정하기" onClick="sendUpdate()">
+			<input type=button class="btn btn-sm btn-primary" id="btnList" value="삭제하기" onClick="sendDelete()">
+		</form>
+
+		<button type="button" class="btn btn-sm btn-primary" id="btnList" onclick="location.href='javascript:window.history.back();'">목록</button>
 	</div>
 
 	<!-- Footer-->

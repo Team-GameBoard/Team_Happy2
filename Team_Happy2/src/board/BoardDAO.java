@@ -16,7 +16,7 @@ private static Board instance = new Board();
 		return instance;
 	}
 	
-	public static ArrayList<Board> getAllContents(int game_num) throws SQLException{
+	public static ArrayList<Board> getAllContents(int gameNum) throws SQLException{
 		Connection con = null;	
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -25,7 +25,7 @@ private static Board instance = new Board();
 		try {
 			con = DBUtil.getConnection();
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, game_num);
+			pstmt.setInt(1, gameNum);
 			rset = pstmt.executeQuery();
 			data = new ArrayList<Board>();
 			while(rset.next()) {
@@ -47,13 +47,12 @@ private static Board instance = new Board();
 		
 		try {
 			con = DBUtil.getConnection();
-			pstmt = con.prepareStatement("insert into board (user_id, board_title, board_context, game_num) values (?, ?, ?, ?)");
-
-			pstmt.setString(1, vo.getUser_id());
-	        pstmt.setString(2, vo.getBoard_title());
-	        pstmt.setString(3, vo.getBoard_context());
-	        pstmt.setInt(4, vo.getGame_num());
-	     	        
+			pstmt = con.prepareStatement("insert into board (user_id, board_title, board_content, game_num) values (?, ?, ?, ?)");
+			pstmt.setString(1, vo.getUserId());
+	        pstmt.setString(2, vo.getBoardTitle());
+	        pstmt.setString(3, vo.getBoardContent());
+	        pstmt.setInt(4, vo.getGameNum());
+	        
 			int count = pstmt.executeUpdate();
 			
 			if(count != 0){
@@ -111,11 +110,9 @@ private static Board instance = new Board();
 			con = DBUtil.getConnection();
 		
 			pstmt = con.prepareStatement("update board set board_title=?,board_content=? where board_num=?");
-			pstmt.setString(1,vo.getBoard_title());
-		    pstmt.setString(2,vo.getBoard_context());
-		    pstmt.setInt(3, vo.getBoard_num());
-		    // and user_id=?
-//		    pstmt.setString(4, vo.getUserId());
+			pstmt.setString(1,vo.getBoardTitle());
+		    pstmt.setString(2,vo.getBoardContent());
+		    pstmt.setInt(3, vo.getBoardNum());
 
 			int count = pstmt.executeUpdate();
 			
@@ -133,14 +130,13 @@ private static Board instance = new Board();
 		PreparedStatement pstmt = null;
 		boolean result = false;
 		
-		String sql="delete from board where num=?";
+		String sql="delete from board where board_num=?";
 		
 		try {
 			con = DBUtil.getConnection();
 			pstmt = con.prepareStatement(sql);
 
 			pstmt.setInt(1,num);
-//	        pstmt.setString(2,userId);
 
 			int count = pstmt.executeUpdate();
 			

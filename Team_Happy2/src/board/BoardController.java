@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import game.GameDAO;
+
 
 @WebServlet("/board")
 public class BoardController extends HttpServlet {
@@ -42,9 +44,10 @@ public class BoardController extends HttpServlet {
 	private void delete(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		String strNum = request.getParameter("num");
 		String userId = request.getParameter("userId");
+		String gameNum = request.getParameter("game_num");
 
 		if (strNum == null || strNum.trim().length() == 0) {
-			response.sendRedirect("board");
+			response.sendRedirect("board?game_num=" + gameNum);
 			return;
 		}
 		boolean result = false;
@@ -55,7 +58,7 @@ public class BoardController extends HttpServlet {
 			request.setAttribute("error", "해당 게시글 삭제 실패했습니다.");
 		}
 		if (result) {
-			response.sendRedirect("board");
+			response.sendRedirect("board?game_num=" + gameNum);
 			return;
 		} else {
 			request.setAttribute("error", "삭제하려는 게시글이 존재하지 않습니다");
@@ -65,13 +68,13 @@ public class BoardController extends HttpServlet {
 
 	private void update(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String strNum = request.getParameter("num");
-		String userId = request.getParameter("userId");
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
+		String gameNum = request.getParameter("game_num");
 
 		if (strNum == null || strNum.trim().length() == 0 || title == null || title.trim().length() == 0
 				|| content == null || content.trim().length() == 0) {
-			response.sendRedirect("board");
+			response.sendRedirect("board?game_num=" + gameNum);
 			return;
 		}
 
@@ -85,7 +88,7 @@ public class BoardController extends HttpServlet {
 			request.setAttribute("error", "게시글 수정 실패");
 		}
 		if (result) {
-			response.sendRedirect("board");
+			response.sendRedirect("board?game_num=" + gameNum);
 			return;
 		}
 		request.setAttribute("error", "게시글 수정 실패");
@@ -146,26 +149,28 @@ public class BoardController extends HttpServlet {
 		String userId = (String) session1.getAttribute("userId");
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
-		String game_num = request.getParameter("game_num");
+		String gameNum = request.getParameter("game_num");
+//		String gameGrade = request.getParameter("tier");
 
 		// 데이터값 입력 유무만 유효성 검증
 		if (userId == null || userId.trim().length() == 0 || title == null || title.trim().length() == 0
 				|| content == null || content.trim().length() == 0) {
-			response.sendRedirect("write.html");
+			response.sendRedirect("NewWrite.jsp");
 			return;// write() 메소드 종료
 		}
 
 		boolean result = false;
 
 		try {
-			result = BoardDAO.writeContent(new Board(userId, title, content, Integer.parseInt(game_num)));
+//			User_gameDAO.writeContent(new User_game(userId, Integer.parseInt(game_num), gameGrade));
+			result = BoardDAO.writeContent(new Board(userId, title, content, Integer.parseInt(gameNum)));
 		} catch (SQLException e) {
 			e.printStackTrace();
 			request.setAttribute("error", "게시글 저장 시도 실패 재 시도 하세요");
 		}
 
 		if (result) {
-			response.sendRedirect("board?game_num=" + game_num);
+			response.sendRedirect("board?game_num=" + gameNum);
 		} else {
 			request.getRequestDispatcher("error.jsp").forward(request, response);
 		}
@@ -177,16 +182,9 @@ public class BoardController extends HttpServlet {
 		String game_num = request.getParameter("game_num");
 
 		try {
-			if(game_num.equals("10")) {
-				request.setAttribute("list", BoardDAO.getAllContents(Integer.parseInt(game_num)));
-				url = "Gameboard_Lostark.jsp";
-			}else if(game_num.equals("20")) {
-				request.setAttribute("list", BoardDAO.getAllContents(Integer.parseInt(game_num)));
-				url = "Gameboard_LoL.jsp";
-			}else if(game_num.equals("30")) {
-				request.setAttribute("list", BoardDAO.getAllContents(Integer.parseInt(game_num)));
-				url = "Gameboard_Overwatch.jsp";
-			}
+			request.setAttribute("list", BoardDAO.getAllContents(Integer.parseInt(game_num)));
+			request.setAttribute("game", GameDAO.getAllContents());
+			url = "Gameboard.jsp";
 			
 		} catch (SQLException e) {
 			e.printStackTrace();

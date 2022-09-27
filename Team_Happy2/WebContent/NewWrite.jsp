@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Update</title>
+<title>Write</title>
 <link href="${pageContext.request.contextPath}/bootstrap-5.1.3-dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <link href="${pageContext.request.contextPath}/fontawesome-free-6.2.0-web/css/font-awesome.min.css" rel="stylesheet">
@@ -36,23 +36,22 @@
 			</div>
             </div>
         </nav>
-
+	<% String gameNum = request.getParameter("game_num"); %>
 	<div class="container" role="main" style="margin-top: 5rem;">
-		<h2>글 수정</h2><br>
+		<h2>글 쓰기</h2><br>
 		<form name="form" id="form" role="form" method="post"
 			action="board">
-			<input type=hidden name="command" value="update">
-		 	<input type='hidden' name='num' value="${requestScope.resultContent.boardNum}">
-			<input type=hidden name="game_num" value="${requestScope.resultContent.gameNum}">
+			<input type="hidden" name="command" value="write">
+			<input type="hidden" name="game_num" value="<%= gameNum %>">
 			<div class="mb-3">
 				<label for="title">제목</label> <input type="text"
 					class="form-control" name="title" id="title"
-					placeholder="제목을 입력해 주세요" value="${resultContent.boardTitle}">
+					placeholder="제목을 입력해 주세요">
 			</div>
 			<div class="mb-3">
 				<label for="content">내용</label>
 				<textarea class="form-control" rows="5" name="content" id="content"
-					placeholder="내용을 입력해 주세요" >${resultContent.boardContent}</textarea>
+					placeholder="내용을 입력해 주세요"></textarea>
 			</div>
 			<div class="mb-3">
 				<label for="tag">티어</label><br>
@@ -63,11 +62,13 @@
 					<option value="platinum">platinum</option>
 				</select>
 			</div>
-		<div>
-			<button type="submit" class="btn btn-sm btn-primary" id="btnSave">수정</button>
-			<button type="button" class="btn btn-sm btn-primary" id="btnList" onclick="location.href='board?game_num=${requestScope.resultContent.gameNum}'">목록</button>
-		</div>
+			<div>
+				<button class="btn btn-sm btn-primary" id="btnSave" type="submit">저장</button>
+				<button type="button" class="btn btn-sm btn-primary" id="btnList"
+					onclick="location.href='javascript:window.history.back();'">목록</button>
+			</div>
 		</form>
+		
 	</div>
 
 

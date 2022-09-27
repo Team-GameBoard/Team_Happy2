@@ -14,30 +14,30 @@ import lombok.ToString;
 @ToString
 @Builder
 public class User {
-	private String user_id;
-	private String user_password;
-	private int user_age;
-	private String user_grade;
+	private String userId;
+	private String userPassword;
+	private int userAge;
+	private String userGrade;
 	
 	
 	// 회원가입
-	public User(String user_id, String user_password, int user_age) {
+	public User(String userId, String userPassword, int userAge) {
 		super();
-		this.user_id = user_id;
-		this.user_password = user_password;
-		this.user_age = user_age;
+		this.userId = userId;
+		this.userPassword = userPassword;
+		this.userAge = userAge;
 	}
 
 	// 로그인
-	public User(String user_id, String user_password) {
+	public User(String userId, String userPassword) {
 		super();
-		this.user_id = user_id;
-		this.user_password = user_password;
+		this.userId = userId;
+		this.userPassword = userPassword;
 	}
 	
 	// ID 중복값 확인
-	public User(String user_id) {
+	public User(String userId) {
 		super();
-		this.user_id = user_id;
+		this.userId = userId;
 	}
 }

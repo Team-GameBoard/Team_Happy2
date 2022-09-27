@@ -75,9 +75,9 @@ public class UserDAO {
 			con = DBUtil.getConnection();
 			pstmt = con.prepareStatement("insert into user (user_id, user_password, user_age) values (?,?,?)");
 
-			pstmt.setString(1, user.getUser_id());
-			pstmt.setString(2, user.getUser_password());
-			pstmt.setInt(3, user.getUser_age());
+			pstmt.setString(1, user.getUserId());
+			pstmt.setString(2, user.getUserPassword());
+			pstmt.setInt(3, user.getUserAge());
 
 			int count = pstmt.executeUpdate();
 
@@ -100,11 +100,11 @@ public class UserDAO {
 			con = DBUtil.getConnection();
 			pstmt = con.prepareStatement("select * from user where user_id=? and user_password=?");
 
-			pstmt.setString(1, user.getUser_id());
-			pstmt.setString(2, user.getUser_password());
+			pstmt.setString(1, user.getUserId());
+			pstmt.setString(2, user.getUserPassword());
 			rset = pstmt.executeQuery();
 			if (rset.next()) {
-				if (rset.getString(2).equals(user.getUser_password())) {
+				if (rset.getString(2).equals(user.getUserPassword())) {
 					System.out.println("로그인 성공");
 					return user;
 				}

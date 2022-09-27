@@ -12,9 +12,9 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class Game {
-	private int game_num;
-	private String game_name;
-	private int game_age;
-	private String game_genre;
+	private int gameNum;
+	private String gameName;
+	private int gameAge;
+	private String gameGenre;
 	
 }

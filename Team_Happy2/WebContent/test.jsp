@@ -14,10 +14,11 @@
 <link href="css/styles.css" rel="stylesheet" />
 </head>
 	<body id="page-top">
+	
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
             <div class="container px-4">
-                <a class="navbar-brand" href="test.jsp">Team Happy</a>
+                <a class="navbar-brand" href="game">Team Happy</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                 	<ul class="navbar-nav ms-auto">
@@ -62,19 +63,15 @@
 			<div style=
 				"display: flex; flex-wrap: wrap; text-align: center; border: 1px solid black; height: 500px;
 				justify-content: space-evenly; align-content: space-evenly; vertical-align: middle;">
-			<div class="fw-bolder" 
-			style="border: 1px solid black; width: 200px; height: 200px; line-height: 200px; cursor: pointer; 
-			background-image: url('img/Lostark.png'); background-size: cover;" 
-			onclick="location.href='board?game_num=10';">Lost Ark</div>
-			<div class="fw-bolder" 
-			style="border: 1px solid black; width: 200px; height: 200px; line-height: 200px; cursor: pointer; 
-			background-image: url('img/LoL.png'); background-size: cover;"
-			onclick="location.href='board?game_num=20';">LoL</div>
-			<div class="fw-bolder" 
-			style="border: 1px solid black; width: 200px; height: 200px; line-height: 200px; cursor: pointer; 
-			background-image: url('img/Overwatch.png'); background-size: cover;"
-			onclick="location.href='board?game_num=30';">Overwatch2</div>
+				<c:forEach items="${requestScope.list}" var="data">
+					<div class="fw-bolder" 
+					style="border: 1px solid black; width: 200px; height: 200px; line-height: 200px; cursor: pointer; 
+					background-image: url('img/${data.gameName}.png'); background-size: cover;" 
+					onclick="location.href='board?game_num=${data.gameNum}';">${data.gameName}</div>
+				
+				</c:forEach>
 			</div>
+			
 		</div>
 	</section>
 

@@ -33,8 +33,8 @@ public class UserController extends HttpServlet {
 	private boolean idCheck(HttpServletRequest request, HttpServletResponse response) {
 		// 아이디 중복값 확인
 		String user_id = request.getParameter("user_id");
-		System.out.println(user_id);
-		System.out.println("id 체크 입니다.");
+//		System.out.println(user_id);
+//		System.out.println("id 체크 입니다.");
 		boolean result = false;
 		response.setHeader("allow-control-allow-origin", "*");
 //		request.setAttribute("user_id", user_id);
@@ -54,8 +54,8 @@ public class UserController extends HttpServlet {
 		String id = request.getParameter("id");
 		String pw = request.getParameter("pw");
 
-		System.out.println("id : " + id);
-		System.out.println("pw : " + pw);
+//		System.out.println("id : " + id);
+//		System.out.println("pw : " + pw);
 
 		request.setAttribute("id", id);
 		request.setAttribute("pw", pw);
@@ -66,8 +66,8 @@ public class UserController extends HttpServlet {
 			userLogin = UserDAO.Login(user);
 			HttpSession session = request.getSession();
 			if (userLogin != null) {
-				session.setAttribute("userId", userLogin.getUser_id());
-				request.getRequestDispatcher("test.jsp").forward(request, response);
+				session.setAttribute("userId", userLogin.getUserId());
+				request.getRequestDispatcher("game").forward(request, response);
 			} else {
 				response.sendRedirect("NewLogin.jsp");
 //				   request.getRequestDispatcher("Login.jsp").forward(request, response);
@@ -85,9 +85,9 @@ public class UserController extends HttpServlet {
 		String user_password = request.getParameter("user_password");
 		int user_age = Integer.parseInt(request.getParameter("user_age"));
 
-		System.out.println("user_id : " + user_id);
-		System.out.println("user_password : " + user_password);
-		System.out.println("user_age : " + user_age);
+//		System.out.println("user_id : " + user_id);
+//		System.out.println("user_password : " + user_password);
+//		System.out.println("user_age : " + user_age);
 
 		try {
 			UserDAO.writeUser(new User(user_id, user_password, user_age));
